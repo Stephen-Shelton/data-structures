@@ -25,7 +25,7 @@ HashTable.prototype.insert = function(key, value) {
   bucket.push([key,value]);
   this.storage.set(i, bucket);
   this.size++;
-  //resize if size has reached capacity > 75% of limit
+  //resize if size > 75% of limit capacity
   if(this.size > this.limit * 0.75) {
     this.resize(this.limit * 2);
   }
@@ -52,9 +52,9 @@ HashTable.prototype.remove = function(key) {
     var pair = bucket[j];
     if( pair[0] === key ){
       bucket.splice(j, 1);
-      this._size--;
-      if( this._size < this._limit * 0.25 ){
-        this.resize(Math.floor(this._limit/2));
+      this.size--;
+      if( this.size < this.limit * 0.25 ){
+        this.resize(Math.floor(this.limit/2));
       }
       return pair[1];
     }
@@ -68,7 +68,7 @@ HashTable.prototype.resize = function(newLimit) {
   this.storage = LimitedArray(this.limit);
   this.size = 0;
   var that = this; //saves context to use in nested object
-  oldStorage.each((bucket) => { //.each works? underscore?
+  oldStorage.each((bucket) => { //underscore each used
     if(!bucket) {
       return;
     }
