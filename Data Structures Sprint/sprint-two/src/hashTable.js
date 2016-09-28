@@ -83,9 +83,9 @@ HashTable.prototype.resize = function(newLimit) {
     limit: 8,
     size: 3,
     storage: {
-      get: function() {...},
-      set: function() {...},
-      each: function() {...}
+      get: function(i) {...},
+      set: function(i,v) {...},
+      each: function(cb) {...}
       PRIVATE VARIABLES B/C OF CLOSURE/LEXICAL SCOPE
         //holds your key value pairs!!!
         var storage = [
@@ -98,10 +98,10 @@ HashTable.prototype.resize = function(newLimit) {
     },
     prototype: {
       constructor: Function HashTable() {...},
-      insert: function() {...},
-      retrieve: function() {...},
-      remove: function() {...},
-      resize: function() {...}
+      insert: function(k,v) {...},
+      retrieve: function(k) {...},
+      remove: function(k) {...},
+      resize: function(newLimit) {...}
     }
   }
 */
