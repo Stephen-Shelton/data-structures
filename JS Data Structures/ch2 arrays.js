@@ -86,7 +86,75 @@
       // => [1,4,5,4,5,6]
 
 *** Sorting ***
+reverse and sort array methods
+  assume we have an arr [1 ... 15], arr.reverse() => [15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1].
 
+  however if we then run arr.sort() we get an incorrect sort since the method sorts elements lexicographically and assumes elements are strings
+    //[ 1, 10, 11, 12, 13, 14, 15, 2, 3, 4, 5, 6, 7, 8, 9 ] WRONG
 
+  can use our own inner function with sort to sort properly
+    arr.sort((a,b) => a-b); // [1 ... 15] sorted properly
+
+  code is equivalent to:
+    function compare(a,b) {
+      if(b > a) {
+        return -1;
+      }
+      if(b < a) {
+        return 1;
+      }
+      return 0; //case if they're equal
+    }
+    arr.sort(compare);
+
+    example with an object
+      var friends = [
+        {name: 'John', age: 30},
+        {name: 'Ana', age: 20},
+        {name: 'Chris', age: 25}
+      ];
+
+      function comparePerson(a, b){
+        if (a.age < b.age){
+          return -1
+        }
+        if (a.age > b.age){
+          return 1
+        }
+          return 0;
+      }
+
+      console.log(friends.sort(comparePerson)); //order is Ana, Chris, John
+
+    if you sort strings, it sorts by ASCII values, so capitalized letters come before lowercase letters. can get around case with your own function
+        names.sort(function(a, b){
+          if (a.toLowerCase() < b.toLowerCase()){
+            return -1
+          }
+          if (a.toLowerCase() > b.toLowerCase()){
+            return 1
+          }
+          return 0;
+        });
+
+    for accented characters can use localeCompare methods
+        var names2 = ['Maève', 'Maeve'];
+        console.log(names2.sort(function(a, b){
+          return a.localeCompare(b);
+        }));
+
+*** Searching ***
+Traditionally search with indexOf or lastIndexOf. Can use find, findIndex, and includes methods with es6/7.
+
+find returns the value that matches the condition, findIndex returns the index of the value that matches the condition, and includes returns a boolean.
+
+  can define a starting index to search for includes. below will return false since search starts at index 5.
+      let numbers2 = [7,6,5,4,3,2,1];
+      console.log(numbers2.includes(4, 5)); //returns false
+
+*** Typed Arrays ***
+Can use the TypeArray class to create arrays with a single datatype. Syntax is let myArray = new TypedArray(length);
+
+Typed arrays are great to work with WebGL APIs, manipulate bits, and manipulate files and images
 
 */
