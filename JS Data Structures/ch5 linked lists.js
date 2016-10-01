@@ -78,7 +78,7 @@ function LinkedList() {
     let index = this.indexOf(element);
     return this.removeAt(index);
   };
-  this.indexOf = function(element) { //index because on position of node
+  this.indexOf = function(element) {
     let current = head;
     let index = 0;
     while(current) {
@@ -265,5 +265,136 @@ function DoublyLinkedList() {
   };
   this.getTail = function() {
     return tail;
+  };
+}
+
+/*
+Circular linked lists. only difference is that a tail.next points to head, and head.prev points to tail for doubly linked lists.
+*/
+
+function CircularLinkedList() {
+  let Node = function(element) {
+    this.element = element;
+    this.next = null;
+  };
+
+  let length = 0;
+  let head = null;
+
+  this.append = function(element) { //add node to end of list
+    let node = new Node(element);
+    let current;
+    //case 1, list is empty
+    if(head === null) {
+      head = node;
+    } else {
+    //case 2, list isn't empty
+      current = head;
+      while(current.next) {
+        current = current.next;
+      }
+      current.next = node;
+    }
+    node.next = head;
+    length++;
+  };
+  this.insert = function(position, element) { //add node at specific point
+    if(position >=0 && position <= length) {
+      let node = new Node(element);
+      let current = head;
+      let previous;
+      let index = 0;
+
+      if(position === 0) { //case if adding at beginning
+        node.next = current; //head now next in list
+        head = node;
+        //make last node.next refer back to new head
+        while(current.next !== head) {
+          current = current.next;
+        }
+        current.next = head;
+      } else { //case if adding anywhere but beginning
+        while(index < position) {
+          index++;
+          previous = current;
+          current = current.next;
+        }
+        node.next = current;
+        previous.next = node;
+      }
+      length++;
+      return true;
+    } else {
+      return false; //got a bad position, nothing added
+    }
+  };
+  this.removeAt = function(position) { //remove node at specific point
+    //case 1, remove 1st element
+    if(position > -1 && position < length) { //1st position is 0
+      let current = head;
+      let previous;
+      let index = 0;
+
+      if(position === 0) { //remove 1st node
+        //traverse to last node to reset next to new head
+        while(current.next !== head) {
+          current = current.next;
+        }
+        head = head.next;
+        current.next = head;
+        //edge case of length is 1
+        if(length === 1) {
+          head = null;
+        }
+      } else { //case 2, remove any other node but the first
+        while(index < position) {
+          index++;
+          previous = current;
+          current = current.next;
+        }
+        previous.next = current.next; //skip current node in link
+      }
+      length--;
+      return current.element;
+    } else {
+      return null;
+    }
+  };
+  this.remove = function(element) { //remove node
+    let index = this.indexOf(element);
+    return this.removeAt(index);
+  };
+  this.indexOf = function(element) {
+    let current = head;
+    let index = 0;
+    while(index < length) {
+      if(current.element === element) {
+        return index;
+      }
+      index++;
+      current = current.next;
+    }
+    return -1;
+  };
+  this.isEmpty = function() {
+    return length === 0;
+  };
+  this.size = function() {
+    return length;
+  };
+  this.toString = function() {
+    let current = head;
+    let string = current.element;
+    while(current.next !== head) {
+      current = current.next;
+      string += ', ' + current.element;
+    }
+    return string.toString();
+  };
+  this.getHead = function() {
+    return head;
+  };
+  this.print = function() {
+    console.log(this.toString());
   };
 }
