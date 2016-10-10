@@ -45,9 +45,6 @@ function BinarySearchTree() {
       insertNode(root, newNode);
     }
   };
-  this.search = function(key) { //returns boolean
-
-  };
   //private helper function for this.inOrderTraverse
   var inOrderTraverse = function(node, callback) {
     if(node !== null) {
@@ -118,10 +115,10 @@ function BinarySearchTree() {
       return false;
     }
     if(key < node.key) {
-      return searchNode(node.left);
+      return searchNode(node.left, key);
     }
     if(key > node.key) {
-      return searchNode(node.right);
+      return searchNode(node.right, key);
     }
     return true;
   };
@@ -361,11 +358,11 @@ function RedBlackTree() {
 
   var root = null;
 
-  this.getRoot = function () {
+  this.getRoot = function() {
     return root;
   };
   //check if a node's color is red
-  var isRed = function(node){
+  var isRed = function(node) {
     if (!node){
       return false;
     }

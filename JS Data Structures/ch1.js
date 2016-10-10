@@ -542,17 +542,17 @@ ES6 changes
 *** Object-oriented programming with classes ***
   es6 classes in JS are syntactic sugar, JS still uses prototypal inheritance. class declarations are not hoisted, so declare the class before you create instances of it.
     old way:
-        function Book(title, pages, isbn){ //{1}
+        function Book(title, pages, isbn) {
           this.title = title;
           this.pages = pages;
           this.isbn = isbn;
         }
-        Book.prototype.printTitle = function(){
+        Book.prototype.printTitle = function() {
           console.log(this.title);
         };
 
     es6 way:
-        class Book { //{2}
+        class Book {
           constructor (title, pages, isbn) {
             this.title = title;
             this.pages = pages;
@@ -565,7 +565,7 @@ ES6 changes
 
         //constructor method special for creating and initializing an object within a class
 
-  would still create an instance via keyboard 'new':
+  would still need to create an instance via keyword 'new':
     let book = new Book('title', 10, 'd87');
 
   can also define classes via expressions
