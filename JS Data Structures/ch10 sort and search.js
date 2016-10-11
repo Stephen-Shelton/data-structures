@@ -358,7 +358,7 @@ var sequentialSearch = function(array, item){
   var binarySearch = function(array, target){
     array = quickSort(array);
 
-    var low = 0,
+    var low = 0;
     var high = array.length - 1;
     var mid;
     var itemAtMid;
